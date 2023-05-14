@@ -27,8 +27,8 @@ def center_image(image):
                 center = (x, y)
                 min_brightness = brightness
 
-    # Draw a red dot at the center point
-    draw = ImageDraw.Draw(image)
-    draw.ellipse((center[0]-5, center[1]-5, center[0]+5, center[1]+5), fill=(255,0,0))
+    # # Draw a red dot at the center point
+    # draw = ImageDraw.Draw(image)
+    # draw.ellipse((center[0]-5, center[1]-5, center[0]+5, center[1]+5), fill=(255,0,0))
 
     return center

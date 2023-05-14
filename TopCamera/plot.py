@@ -13,3 +13,5 @@ def plot(image, center, polar_coords):
         x = center[0] + polar_r * np.cos(polar_theta)
         y = center[1] + polar_r * np.sin(polar_theta)
         draw.line((center[0], center[1], x, y), fill=color, width=5)
+
+    image.show()
