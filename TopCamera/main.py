@@ -28,7 +28,7 @@ angle = angles_polar(polar_coords)
 angle_relative = angles_polar_relative(polar_coords)
 
 # Find position
-# position = triangulation(angle, angle_relative)
+position = triangulation(angle, angle_relative)
 
 # plot
 plot(image,center,polar_coords)
