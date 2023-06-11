@@ -1,0 +1,37 @@
+import time
+
+
+choose_toy(map, timer, robot_position):
+
+
+def pick_up(target):
+    goto(target, map, )
+
+def generate_action(map, robot_position):
+    if duplo in map:
+        target = choose_toy(map, timer, robot_position)
+        pick_up(target)
+    else:
+        explore(map)
+
+def main():
+    # Initialize variables
+    pick_up_success = 0
+    robot_position = get_position()
+    map = generate_map()
+
+    # Start the timer
+    start_time = time.time()
+    
+    # Run the loop for 10 minutes (or until timer runs out)
+    while time.time() - start_time < 540:  # 600 seconds = 10 minutes
+        # Get the robot's current position
+        robot_position = get_position()
+        
+        # Generate the map
+        map = generate_map()
+
+        action = generate_action(map)
+
+    # Return to base after time runs out
+    return_to_base()

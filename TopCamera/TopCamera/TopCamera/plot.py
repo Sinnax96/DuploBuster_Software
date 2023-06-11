@@ -1,11 +1,7 @@
 from PIL import ImageDraw
 import numpy as np
-from PIL import Image
 
 def plot(image, center, polar_coords):
-    # Convert the NumPy array to a PIL Image object
-    image = Image.fromarray(image)
-
     # Draw a red dot at the center point
     draw = ImageDraw.Draw(image)
     draw.ellipse((center[0]-5, center[1]-5, center[0]+5, center[1]+5), fill=(255,0,0))
@@ -18,5 +14,4 @@ def plot(image, center, polar_coords):
         y = center[1] + polar_r * np.sin(polar_theta)
         draw.line((center[0], center[1], x, y), fill=color, width=5)
 
-    # Display the image
     image.show()

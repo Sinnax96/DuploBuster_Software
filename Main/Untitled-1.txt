@@ -1,0 +1,41 @@
+def explore(map):
+    unknown = find_unknown
+    trajectory(unknown)
+
+def pick_up(target):
+    while front_distance
+
+def generate_action(map, robot_position):
+    if duplo in map:
+        target = choose_toy(map)
+        pick_up(target)
+    else:
+        explore(map)
+
+def pick_up(target):
+    while distance > 10
+        trajectory(target)
+
+def main:
+    # init
+    
+    pick_up_success = 0
+    # Get the robot's current position
+    robot_position = get_position()
+    # Generate the map
+    map = generate_map()
+
+
+    while timer < 9
+        # Get the robot's current position
+        robot_position = get_position()
+
+        # Generate the map
+        map = generate_map()
+
+        action = generate_action(map)
+
+
+    return_to_base()
+
+return 0
