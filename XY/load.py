@@ -12,7 +12,7 @@ pink = (155, 0, 255)
 
 def load_image():
     # Image loading
-    image = Image.open("C:/Users/sinna/OneDrive/Documents/EPFL/Master/DuploBuster/DuploBuster_Software/XY/pics/top.jpg")
+    image = Image.open("C:/Users/sinna/OneDrive/Documents/EPFL/Master/DuploBuster/DuploBuster_Software/XY/pics/end.jpg")
     image = np.array(image)
     return image
 

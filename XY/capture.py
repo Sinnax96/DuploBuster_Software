@@ -3,7 +3,7 @@ import cv2
 def capture():
     # Settings
     # exposure_time = 0.000001
-    exposure_time = 0.000001
+    exposure_time = 0.0001
     # Initialize the video capture object
     cap = cv2.VideoCapture(0)
 
