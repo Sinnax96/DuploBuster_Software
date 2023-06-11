@@ -1,0 +1,12 @@
+ros_ws/build/
+ros_ws/install/
+ros_ws/log/
+ros_ws/log/**
+ros_ws/install/**
+ros_ws/build/**
+ros_ws/build/*
+ros_ws/install/*
+ros_ws/log/*
+YOLOv6/
+YOLOv6/*
+YOLOv&/**
