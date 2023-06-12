@@ -5,9 +5,18 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     curl \
     netcat \
     vim \
+    zsh \
+    locales \
     ssh \
     cmatrix \
     && rm -rf /var/lib/apt/lists/*
+
+RUN locale-gen en_US en_US.UTF-8
+#RUN update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
+ENV LC_ALL en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US.UTF-8
+RUN update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 
 WORKDIR /ros_ws
 RUN echo "export ROS_MASTER_URI=http://10.42.0.39:11311/" >> "/root/.bashrc"
