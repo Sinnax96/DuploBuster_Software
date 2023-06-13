@@ -12,7 +12,7 @@ pink = (155, 0, 255)
 
 def load_image():
     # Image loading
-    image = Image.open("C:/Users/sinna/OneDrive/Documents/EPFL/Master/DuploBuster/DuploBuster_Software/XY/pics/perfect.jpg")
+    image = Image.open("C:/Users/sinna/OneDrive/Documents/EPFL/Master/DuploBuster/DuploBuster_Software/XY/pic/44180.jpg")
     image = np.array(image)
     return image
 
@@ -84,8 +84,10 @@ def center_image(image):
             brightness = np.mean(gray[mask_inv == 0])
             score = (255 - brightness) / 255 * (r - min_radius) / (max_radius - min_radius)
             if score > min_score and brightness < min_brightness:
-                center = (x, y)
-                min_brightness = brightness
+                center_distance = math.sqrt((x - center[0]) ** 2 + (y - center[1]) ** 2)
+                if center_distance <= width / 4:  # Adjust the threshold as needed
+                    center = (x, y)
+                    min_brightness = brightness
 
     # Draw a red dot at the center point
     draw = ImageDraw.Draw(image_pil)
@@ -96,6 +98,7 @@ def center_image(image):
 
 def regions_image(image, center):
     # Define the colors to look for (RGB format)
+    # Variable
     tolerance = 120
 
     # Find the pixels that match the defined colors within the tolerance range

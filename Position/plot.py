@@ -1,6 +1,12 @@
 from PIL import Image, ImageEnhance, ImageDraw
 import numpy as np
 import math
+import cv2
+
+red = (255, 0, 50)
+green = (0, 255, 100)
+blue = (0, 150, 255)
+pink = (200, 0, 255)
 
 def plot(image, center, sorted_polar_coords):
     # Convert the NumPy array to a PIL Image object
@@ -20,15 +26,20 @@ def plot(image, center, sorted_polar_coords):
         avg_polar_coords = sorted_polar_coords[color]
         if avg_polar_coords is not None:
             avg_polar_r, avg_polar_theta = avg_polar_coords
-
+            color_name = {
+                red: "red",
+                green: "green",
+                blue: "blue",
+                pink: "pink"
+            }.get(color, str(color))
             if not math.isnan(avg_polar_r) and not math.isnan(avg_polar_theta):
                 x = center[0] + avg_polar_r * math.cos(avg_polar_theta)
                 y = center[1] + avg_polar_r * math.sin(avg_polar_theta)
 
                 draw.line((center[0], center[1], x, y), fill=color, width=5)
-                print(f"{color}: {math.degrees(avg_polar_theta)} degrees")
+                print(f"{color_name}: {math.degrees(avg_polar_theta)} degrees")
             else:
-                print(f"{color}: None")
+                print(f"{color_name}: None")
 
     # Display the image
     image_pil.show()
