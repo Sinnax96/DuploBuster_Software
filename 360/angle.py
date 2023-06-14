@@ -1,10 +1,11 @@
 import math
 import numpy as np
 
-red = (255, 0, 0)
-green = (0, 255, 0)
-blue = (0, 0, 255)
-pink = (155, 0, 255)
+red = (255, 0, 50)
+green = (0, 255, 100)
+blue = (0, 150, 255)
+pink = (200, 0, 255)
+
 
 def filter_outliers(positions, threshold):
     # Calculate the mean position

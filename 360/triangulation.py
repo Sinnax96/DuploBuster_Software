@@ -2,10 +2,10 @@ import math
 
 from angle import filter_outliers
 
-red = (255, 0, 0)
-green = (0, 255, 0)
-blue = (0, 0, 255)
-pink = (155, 0, 255)
+red = (255, 0, 50)
+green = (0, 255, 100)
+blue = (0, 150, 255)
+pink = (200, 0, 255)
 
 def triangulation(sorted_polar_coords):
     # Define the dimensions of the room in meters
@@ -13,25 +13,33 @@ def triangulation(sorted_polar_coords):
 
     # Get angles
     angles = {}
-
     for color, (polar_r, polar_theta) in sorted_polar_coords.items():
         angles[color] = math.degrees(polar_theta)
-
+    
     angle_pink = angles.get(pink)
     angle_green = angles.get(green)
     angle_red = angles.get(red)
     angle_blue = angles.get(blue)
 
+    # Get the first color and its polar angle
+    first_color = next(iter(sorted_polar_coords))
+
+    # Get angles for all colors
+    angles = {}
+    for color, (polar_r, polar_theta) in sorted_polar_coords.items():
+        angles[color] = math.degrees(polar_theta)
+
     # Compute relative angles
-    relative_angles = []
+    relative_angle = 0
 
-    if pink in angles and angles[pink] is not None:
-        relative_angles.append(angles[pink] + 135)
-
-    if len(relative_angles) > 0:
-        relative_angle = sum(relative_angles) / len(relative_angles)
-    else:
-        relative_angle = 0
+    if pink == first_color:
+        relative_angle = -angles[pink] - 135
+    if red == first_color:
+        relative_angle = - angles[red] - 45
+    if green == first_color:
+        relative_angle = -angles[green] + 135
+    if blue == first_color:
+        relative_angle = -angles[blue] + 45
 
     if angle_pink is not None:
         angle_pink -= relative_angle
@@ -53,8 +61,8 @@ def triangulation(sorted_polar_coords):
 
         position_x_pr = distance - h_pr * math.cos(math.radians(angle_red))
         position_y_pr = - h_pr * math.sin(math.radians(angle_red))
-        print("Position from Pink-Red:", position_x_pr, position_y_pr)
-        print("")
+        # print("Position from Pink-Red:", position_x_pr, position_y_pr)
+        # print("")
         # Remove line as it is noise and lead to position outside room
         if 0 <= position_x_pr <= distance and 0 <= position_y_pr <= distance:
             valid_data_points += 1
@@ -67,8 +75,8 @@ def triangulation(sorted_polar_coords):
 
         position_x_gp = h_gp * math.cos(math.radians(180 + angle_pink))
         position_y_gp = h_gp * math.sin(math.radians(180 + angle_pink))
-        print("Position from Green-Pink:", position_x_gp, position_y_gp)
-        print("")
+        # print("Position from Green-Pink:", position_x_gp, position_y_gp)
+        # print("")
         if 0 <= position_x_gp <= distance and 0 <= position_y_gp <= distance:
             valid_data_points += 1
 
@@ -80,8 +88,8 @@ def triangulation(sorted_polar_coords):
 
         position_x_bg = h_bg * math.cos(math.radians(180 - angle_green))
         position_y_bg = distance - h_bg * math.sin(math.radians(180 - angle_green))
-        print("Position from Blue-Green:", position_x_bg, position_y_bg)
-        print("")
+        # print("Position from Blue-Green:", position_x_bg, position_y_bg)
+        # print("")
 
         if 0 <= position_x_bg <= distance and 0 <= position_y_bg <= distance:
             valid_data_points += 1
@@ -94,8 +102,8 @@ def triangulation(sorted_polar_coords):
 
         position_x_br = distance - h_br * math.cos(math.radians(angle_blue))
         position_y_br = distance - h_br * math.sin(math.radians(angle_blue))
-        print("Position from Blue-Red:", position_x_br, position_y_br)
-        print("")
+        # print("Position from Blue-Red:", position_x_br, position_y_br)
+        # print("")
 
         if 0 <= position_x_br <= distance and 0 <= position_y_br <= distance:
             valid_data_points += 1
@@ -113,9 +121,13 @@ def triangulation(sorted_polar_coords):
             position_x = sum(pos[0] for pos in filtered_positions) / len(filtered_positions)
             position_y = sum(pos[1] for pos in filtered_positions) / len(filtered_positions)
 
+    # Keep angle between -180 and 180
+    if relative_angle > 180:
+        relative_angle = relative_angle - 360
+    if relative_angle < -180:
+        relative_angle = relative_angle + 360
 
-    x, y, relative_angle = position_x, position_y, relative_angle
 
-    print(f"Position X: {x} Position Y: {y} Angle: {relative_angle}")
+    print(f"Position X: {position_x} Position Y: {position_y} Angle: {relative_angle}")
 
-    return x, y, relative_angle
+    return position_x, position_y, relative_angle

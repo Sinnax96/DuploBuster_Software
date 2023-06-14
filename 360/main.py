@@ -4,14 +4,14 @@ from triangulation import triangulation
 from capture import capture
 
 # Load the image
-image = load_image()
 # image = capture()
+image = load_image()
+
+# Filter image
+image = filter_image(image)
 
 # Find center
 center = center_image(image)
-
-# Filter image
-image = filter_image(image, center)
 
 # Find LEDs polar coords
 sorted_polar_coords = regions_image(image, center)
