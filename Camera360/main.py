@@ -11,4 +11,3 @@ def main():
     # Release the video capture object
     cap.release()
 
-    return position_x, position_y, relative_angle
