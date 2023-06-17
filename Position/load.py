@@ -12,7 +12,7 @@ pink = (200, 0, 255)
 
 def load_image():
     # Image loading
-    image = Image.open("C:/Users/sinna/OneDrive/Documents/EPFL/Master/DuploBuster/DuploBuster_Software/Position/final_pics/110.jpg")
+    image = Image.open("C:/Users/sinna/OneDrive/Documents/EPFL/Master/DuploBuster/DuploBuster_Software/Position/final_pics/44180.jpg")
     image = np.array(image)
     return image
 
@@ -48,8 +48,8 @@ def center_image(image):
     center = (width // 2, height // 2)
 
     # Find the darkest circular shape in the image
-    min_radius = 0
-    max_radius = 30
+    min_radius = 30
+    max_radius = 50
     min_score = 0.1
     max_distance = min(width, height) // 8
     gray = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)

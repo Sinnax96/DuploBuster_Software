@@ -12,14 +12,34 @@ pink = (200, 0, 255)
 
 def load_image():
     # Image loading
-    image = Image.open("C:/Users/sinna/OneDrive/Documents/EPFL/Master/DuploBuster/DuploBuster_Software/360/final_pics/44180.jpg")
+    image = Image.open("C:/Users/sinna/OneDrive/Documents/EPFL/Master/DuploBuster/DuploBuster_Software/360/pics/110.jpg")
     image = np.array(image)
     return image
 
 def filter_image(image):
     # Filter image
 
-    return image
+    # Convert the NumPy array to a PIL Image object
+    image_pil = Image.fromarray(image)
+
+    # Variable factor to lower resolution of image
+    factor = 2
+    # Calculate the new dimensions
+    width, height = image_pil.size
+    new_width = width // factor
+    new_height = height // factor
+
+    # Resize the image
+    new_image = image.resize((new_width, new_height), Image.ANTIALIAS)
+
+    # Enhance the contrast
+    enhancer = ImageEnhance.Contrast(new_image)
+    image_enhanced = enhancer.enhance(1.0)
+
+    # Convert the enhanced image back to a NumPy array
+    image_filtered = np.array(image_enhanced)
+
+    return image_filtered
 
 def center_image(image):
     # Convert the NumPy array to a PIL Image object
@@ -108,15 +128,15 @@ def regions_image(image, center):
     # Sort the polar coordinates based on the probability (number of pixels in each color region)
     sorted_polar_coords = sorted(polar_coords.items(), key=lambda x: len(regions[x[0]]), reverse=True)
 
-    # Display the regions and center point in descending order
-    for color, pixels in sorted_polar_coords:
-        color_name = {
-            red: "red",
-            green: "green",
-            blue: "blue",
-            pink: "pink"
-        }.get(color, str(color))
-        print(f"Found {len(regions[color])} pixels of color {color_name}.")
+    # # Display the regions and center point in descending order
+    # for color, pixels in sorted_polar_coords:
+    #     color_name = {
+    #         red: "red",
+    #         green: "green",
+    #         blue: "blue",
+    #         pink: "pink"
+    #     }.get(color, str(color))
+    #     print(f"Found {len(regions[color])} pixels of color {color_name}.")
 
     return dict(sorted_polar_coords)
 
